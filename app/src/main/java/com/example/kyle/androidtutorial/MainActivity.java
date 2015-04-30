@@ -4,8 +4,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -16,6 +21,25 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         Toast toast = Toast.makeText(getApplicationContext(),"Creating", Toast.LENGTH_SHORT);
         toast.show();
+
+        final Button button = (Button) findViewById(R.id.clickMe);
+
+        button.setOnClickListener( new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   //change text of title
+                   TextView title = (TextView) findViewById(R.id.title);
+                   if (title.getText() == "JoyRun")
+                        title.setText("iHopp");
+                   else
+                       title.setText("JoyRun");
+
+               }
+           }
+
+
+        );
+
 
 
     }

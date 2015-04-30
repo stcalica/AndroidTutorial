@@ -9,14 +9,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="IHopp"
-        android:id="@+id/textView"
         android:textSize="32sp"
         android:gravity="center"
+        android:id="@+id/title"
     />
 
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:text="Button"
+        android:id="@+id/clickMe"/>
+
 
 </LinearLayout>
