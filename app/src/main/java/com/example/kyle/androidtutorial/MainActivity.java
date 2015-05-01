@@ -2,6 +2,7 @@ package com.example.kyle.androidtutorial;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
-
+    private static final int REQUEST_ENABLE_BT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,19 @@ public class MainActivity extends ActionBarActivity {
         if(btAdapter==null) {
             Toast toastb = Toast.makeText(getApplicationContext(), "Bluetooth Not Supported", Toast.LENGTH_SHORT);
             toastb.show();
-
+        } else {
+            if (btAdapter.isEnabled()) {
+                Toast toastb = Toast.makeText(getApplicationContext(), "Bluetooth Started Discovery", Toast.LENGTH_SHORT);
+                toastb.show();
+              // Starting the device discovery
+                btAdapter.startDiscovery();
+            } else {
+                //intent to turn on bluetooth if not enabled
+                Intent enableBtIntent = new Intent(btAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                Toast toastb = Toast.makeText(getApplicationContext(), "Bluetooth Enable Intent", Toast.LENGTH_SHORT);
+                toastb.show();
+            }
         }
 
         final Button button = (Button) findViewById(R.id.clickMe);
@@ -53,28 +66,36 @@ public class MainActivity extends ActionBarActivity {
                public void onClick(View v) {
                    TextView title = (TextView) findViewById(R.id.title);
                    //change text of title
-                   Toast toastb = Toast.makeText(getApplicationContext(),"Button Clicked", Toast.LENGTH_SHORT);
-                   toastb.show();
+//                   Toast toastb = Toast.makeText(getApplicationContext(),"Button Clicked", Toast.LENGTH_SHORT);
+//                   toastb.show();
                    if (title.getText() == "JoyRun"){
                        title.setText("iHopp");
-                       Toast toastc1 = Toast.makeText(getApplicationContext(),"Changing to iHopp", Toast.LENGTH_SHORT);
-                       toastc1.show();
+ //                      Toast toastc1 = Toast.makeText(getApplicationContext(),"Changing to iHopp", Toast.LENGTH_SHORT);
+//                       toastc1.show();
 
                    }
                    else{
                        title.setText("JoyRun");
-                       Toast toastc2 = Toast.makeText(getApplicationContext(),"Changing to JoyRun", Toast.LENGTH_SHORT);
-                       toastc2.show();
+                    //   Toast toastc2 = Toast.makeText(getApplicationContext(),"Changing to JoyRun", Toast.LENGTH_SHORT);
+                      // toastc2.show();
                    }
 
                }
            }
 
 
-        );
+        );//end of onClickListner
 
 
 
+    } //end of oncreate
+
+    /* This routine is called when an activity completes.*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       super.onActivityResult(requestCode, resultCode, data);
+        Toast toastR = Toast.makeText(getApplicationContext(),"OnActivityResult", Toast.LENGTH_SHORT);
+        toastR.show();
     }
 
     protected void onStart() {
